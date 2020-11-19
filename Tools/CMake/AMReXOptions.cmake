@@ -125,13 +125,6 @@ elseif (AMReX_GPU_BACKEND STREQUAL HIP)
 endif ()
 
 # --- SYCL ---
-if (AMReX_DPCPP)
-   if (NOT (CMAKE_CXX_COMPILER MATCHES "dpcpp") )
-      message(FATAL_ERROR "\nAMReX_GPU_BACKEND=${AMReX_GPU_BACKEND} supports dpcpp compiler only."
-         "Set CMAKE_CXX_COMPILER=dpccp and try again.")
-   endif ()
-endif ()
-
 cmake_dependent_option( AMReX_DPCPP_AOT  "Enable DPCPP ahead-of-time compilation (WIP)"  OFF
    "AMReX_GPU_BACKEND STREQUAL SYCL" OFF)
 print_option( AMReX_DPCPP_AOT )
@@ -161,7 +154,7 @@ endif ()
 #
 # Parallel backends    ========================================================
 #
-cmake_dependent_option( AMReX_MPI  "Enable MPI"  ON "NOT AMReX_GPU_BACKEND STREQUAL SYCL" OFF)
+option( AMReX_MPI  "Enable MPI" ON )
 print_option( AMReX_MPI )
 
 cmake_dependent_option( AMReX_MPI_THREAD_MULTIPLE

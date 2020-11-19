@@ -61,6 +61,11 @@ endif ()
 #
 #
 if (AMReX_DPCPP)
+   if (NOT (CMAKE_CXX_COMPILER MATCHES "dpcpp") )
+      message(FATAL_ERROR "\nAMReX_GPU_BACKEND=${AMReX_GPU_BACKEND} supports dpcpp compiler only."
+         "Set CMAKE_CXX_COMPILER=dpccp and try again.")
+      endif ()
+   endif ()
    include(AMReXSYCL)
    target_link_libraries(amrex PUBLIC SYCL)
 endif ()

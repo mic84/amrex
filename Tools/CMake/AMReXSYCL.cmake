@@ -44,8 +44,9 @@ target_compile_features(SYCL INTERFACE cxx_std_17)
 #
 target_compile_options( SYCL
    INTERFACE
-   $<${_cxx_clang}:-Wno-error=sycl-strict -fsycl>
-   $<${_cxx_clang}:$<$<BOOL:${AMReX_DPCPP_SPLIT_KERNEL}>:-fsycl-device-code-split=per_kernel>>)
+   $<${_cxx_clang}:-Wno-error=sycl-strict -fsycl -Wno-pass-failed >
+   $<${_cxx_clang}:$<$<BOOL:${AMReX_DPCPP_SPLIT_KERNEL}>:-fsycl-device-code-split=per_kernel>>
+   $<${_cxx_clang}:$<$<BOOL:${AMReX_MPI}>:-fsycl-unamed-lambda>>)
 
 # temporary work-around for DPC++ beta08 bug
 #   define "long double" as 64bit for C++ user-defined literals
